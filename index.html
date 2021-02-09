@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+  <canvas id="gameCanvas" width="600" height="600"></canvas>
+  
+</body>
+</html>
+
+
+<script>
+  const canvas = document.getElementById("gameCanvas");
+  const ctx = canvas.getContext("2d");
+
+  const squareSize = 30;
+  const gridsize = 600 / squareSize;
+
+  const gameInterval = 300;
+
+  var snake = [[10,10], [11,10], [12,10], [13,10], [14, 10]];
+
+  velocity = 0 // 0 - left, 1 - up, 2 - right, 3 - down
+
+  setInterval(main, gameInterval);
+
+  function main() {
+    clearCanvas();
+    drawSnake();
+    moveSnake();
+  }
+
+  function clearCanvas() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  }
+
+  function moveSnake(){
+    snake.pop();
+
+    newEl = snake[0];
+
+    switch (velocity) {
+      case 0:
+	newEl[0] -= 1;
+	if (newEl[0] < 0) {
+	  newEl[0] = gridsize;
+	}
+      case 1:
+	newEl[1] -= 1;
+	if (newEl[1] < 0) {
+	  newEl[1] = gridsize;
+	}
+      case 2:
+	newEl[0] += 1;
+	if (newEl[0] > gridsize) {
+	  newEl[0] = 0;
+	}
+      case 3:
+	newEl[1] += 1;
+	if (newEl[1] > gridsize) {
+	  newEl[1] = 0;
+	}
+    }
+
+    snake.unshift(newEl);
+
+    console.log(newEl);
+  }
+
+  function drawSnake() {
+    ctx.fillstyle = "#FF0000";
+    snake.forEach(drawSquare);
+  }
+
+  function drawSquare(el) {
+    ctx.fillRect(el[0] * squareSize, el[1] * squareSize, squareSize, squareSize);
+  }
+
+</script>
