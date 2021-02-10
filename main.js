@@ -30,8 +30,8 @@ var interval;
 interval = setInterval(main, gameInterval);
 
 function endGame() {
-  alert(`GAME OVER\nYou scored ${score}`);
-  window.location.reload();
+  if (alert(`GAME OVER\nYou scored ${score}`)) {}
+  else window.location.reload();
 }
 
 function main() {
