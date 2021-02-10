@@ -11,6 +11,11 @@ const gameInterval = 100;
 var snake = [[10,10], [11,10], [12,10], [13,10], [14, 10]];
 var food = generateFood();
 
+var scoreLabel = document.getElementById("score");
+
+const scoreStep = 9;
+var score = 0;
+
 var eaten = false;
 
 var nextDirection = 0;
@@ -21,8 +26,8 @@ var interval;
 interval = setInterval(main, gameInterval);
 
 function endGame() {
-  alert("GAME OVER");
-  window.location.reload()
+  alert(`GAME OVER\nYou scored ${score}`);
+  window.location.reload();
 }
 
 function main() {
@@ -86,6 +91,7 @@ function moveSnake(){
 
   if (x === food[0] && y === food[1]) {
     eaten = true;
+    increaseScore();
     food = generateFood();
   }
 
@@ -97,6 +103,11 @@ function moveSnake(){
 
   snake.unshift([x, y]);
 
+}
+
+function increaseScore() {
+  score += scoreStep;
+  scoreLabel.innerHTML = score;
 }
 
 function adjustForOverflow(n, diff) {
