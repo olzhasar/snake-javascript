@@ -25,11 +25,10 @@ var eaten = false;
 var nextDirection = 0;
 var direction = 0; // 0 - left, 1 - up, 2 - right, 3 - down
 
-var interval;
-
-interval = setInterval(main, gameInterval);
+var interval = setInterval(main, gameInterval);
 
 function endGame() {
+  clearInterval(interval);
   if (alert(`GAME OVER\nYou scored ${score}`)) {}
   else window.location.reload();
 }
