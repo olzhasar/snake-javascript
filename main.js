@@ -3,6 +3,10 @@ document.addEventListener('keydown', keyDownHandler, false);
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 
+const canvasColor = "#f1faee";
+const snakeColor = "#000";
+const foodColor = "#e63946";
+
 const squareSize = 30;
 const gridsize = 600 / squareSize;
 
@@ -33,7 +37,7 @@ function endGame() {
 function main() {
   clearCanvas();
   moveSnake();
-  drawSnake();
+  drawGame();
 }
 
 function clearCanvas() {
@@ -126,11 +130,6 @@ function adjustForOverflow(n, diff) {
   return n
 }
 
-function drawSnake() {
-  snake.forEach(drawSquare);
-  drawSquare(food);
-}
-
 function getRandomCoordinate() {
   return Math.floor(Math.random() * (gridsize - 1));
 }
@@ -147,6 +146,17 @@ function generateFood() {
   return [x,y]
 }
 
-function drawSquare(el) {
-  ctx.fillRect(el[0] * squareSize, el[1] * squareSize, squareSize, squareSize);
+function drawGame() {
+  ctx.fillStyle = canvasColor;
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  ctx.fillStyle = snakeColor;
+
+  snake.forEach(function(el) {
+    ctx.fillRect(el[0] * squareSize, el[1] * squareSize, squareSize, squareSize);
+  });
+
+  ctx.fillStyle = foodColor;
+
+  ctx.fillRect(food[0] * squareSize, food[1] * squareSize, squareSize, squareSize);
 }
