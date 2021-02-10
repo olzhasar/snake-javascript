@@ -4,7 +4,7 @@ const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 
 const canvasColor = "#f1faee";
-const snakeColor = "#000";
+const snakeColor = "#999";
 const foodColor = "#e63946";
 
 const squareSize = 30;
@@ -152,11 +152,14 @@ function drawGame() {
 
   ctx.fillStyle = snakeColor;
 
-  snake.forEach(function(el) {
-    ctx.fillRect(el[0] * squareSize, el[1] * squareSize, squareSize, squareSize);
-  });
+  snake.forEach(drawSquare);
 
   ctx.fillStyle = foodColor;
 
-  ctx.fillRect(food[0] * squareSize, food[1] * squareSize, squareSize, squareSize);
+  drawSquare(food);
+}
+
+function drawSquare(el) {
+  ctx.strokeRect(el[0] * squareSize, el[1] * squareSize, squareSize, squareSize);
+  ctx.fillRect(el[0] * squareSize + 1, el[1] * squareSize + 1, squareSize - 2, squareSize - 2);
 }
