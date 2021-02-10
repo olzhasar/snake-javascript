@@ -21,6 +21,7 @@ const scoreStep = 9;
 var score = 0;
 
 var eaten = false;
+var gameOver = false;
 
 var nextDirection = 0;
 var direction = 0; // 0 - left, 1 - up, 2 - right, 3 - down
@@ -28,6 +29,7 @@ var direction = 0; // 0 - left, 1 - up, 2 - right, 3 - down
 var interval = setInterval(main, gameInterval);
 
 function endGame() {
+  gameOver = true;
   clearInterval(interval);
   if (alert(`GAME OVER\nYou scored ${score}`)) {}
   else window.location.reload();
@@ -146,6 +148,10 @@ function generateFood() {
 }
 
 function drawGame() {
+  if (gameOver) {
+    return;
+  }
+
   ctx.fillStyle = canvasColor;
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
