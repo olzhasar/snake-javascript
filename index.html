@@ -2,11 +2,48 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title></title>
+  <title>Snake game</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <style>
+    html {
+      position: relative;
+      min-height: 100%;
+    }
+
+    body {
+      margin: 0 0 100px;
+      background: #2a9d8f;
+      font-family: 'Press Start 2P', cursive;
+    }
+    
+    footer {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      height: 100px;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    #gameCanvas {
+      background: #f9f9f9;
+      border: 5px solid black;
+    }
+
+    .container {
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
-  <canvas id="gameCanvas" width="600" height="600"></canvas>
-  
+  <div class="container">
+    <h1>SNAKE</h1>
+    <canvas id="gameCanvas" width="600" height="600"></canvas>
+  <footer>
+    <h3>Made by Olzhas Arystanov</h3>
+  </footer>
+  </div>
 </body>
 </html>
 
