@@ -9,6 +9,12 @@ const gridsize = 600 / squareSize;
 const gameInterval = 200;
 
 var snake = [[10,10], [11,10], [12,10], [13,10], [14, 10]];
+var food = generateFood();
+
+var eaten = false;
+var gameOver = false;
+
+console.log(food);
 
 direction = 0 // 0 - left, 1 - up, 2 - right, 3 - down
 
@@ -51,36 +57,40 @@ function keyDownHandler(event) {
 }
 
 function moveSnake(){
-  snake.pop();
+  if (! eaten) {
+    snake.pop();
+  } else {
+    eaten = false;
+  }
 
-  head = movePoint(snake[0].slice());
+  head = snake[0].slice();
+
+  switch (direction) {
+    case 0:
+      head[0] = adjustCoordinate(head[0], false);
+      break;
+    case 1:
+      head[1] = adjustCoordinate(head[1], false);
+      break;
+    case 2:
+      head[0] = adjustCoordinate(head[0], true);
+      break;
+    case 3:
+      head[1] = adjustCoordinate(head[1], true);
+      break;
+  }
+
+  if (head[0] === food[0] && head[1] === food[1]) {
+    eaten = true;
+    food = generateFood();
+  }
 
   snake.unshift(head);
 }
 
-function movePoint(point) {
-
-  switch (direction) {
-    case 0:
-      point[0] = adjustCoordinate(point[0], false);
-      break;
-    case 1:
-      point[1] = adjustCoordinate(point[1], false);
-      break;
-    case 2:
-      point[0] = adjustCoordinate(point[0], true);
-      break;
-    case 3:
-      point[1] = adjustCoordinate(point[1], true);
-      break;
-  }
-
-  return point
-}
-
 function adjustCoordinate(n, positive=true) {
   if (positive) {
-    if (n >= gridsize) {
+    if (n >= gridsize - 1) {
       n = 0;
     } else {
       n += 1;
@@ -99,8 +109,23 @@ function adjustCoordinate(n, positive=true) {
 }
 
 function drawSnake() {
-  ctx.fillstyle = "#FF0000";
   snake.forEach(drawSquare);
+  drawSquare(food);
+}
+
+function getRandomCoordinate() {
+  return Math.floor(Math.random() * (gridsize - 1));
+}
+
+function generateFood() {
+  x = getRandomCoordinate();
+  y = getRandomCoordinate();
+  snake.forEach(function(element) {
+    if (element[0] === x && element[1] === y) {
+      return generateFood()
+    }
+  });
+  return [x,y]
 }
 
 function drawSquare(el) {
