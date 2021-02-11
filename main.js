@@ -94,12 +94,6 @@ function moveSnake(){
   x = adjustForOverflow(x, xdiff);
   y = adjustForOverflow(y, ydiff);
 
-  if (x === food[0] && y === food[1]) {
-    eaten = true;
-    increaseScore();
-    food = generateFood();
-  }
-
   snake.forEach(function(point) {
     if (point[0] === x && point[1] === y) {
       endGame();
@@ -107,6 +101,12 @@ function moveSnake(){
   })
 
   snake.unshift([x, y]);
+
+  if (x === food[0] && y === food[1]) {
+    eaten = true;
+    increaseScore();
+    food = generateFood();
+  }
 
 }
 
