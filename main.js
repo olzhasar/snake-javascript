@@ -15,6 +15,11 @@ const gameInterval = 100;
 var snake = [[10,10], [11,10], [12,10], [13,10], [14, 10]];
 var food = generateFood();
 
+var storage = window.localStorage;
+var record = storage.getItem('record') || 0;
+var recordLabel = document.getElementById("record");
+recordLabel.innerHTML = record;
+
 var scoreLabel = document.getElementById("score");
 
 const scoreStep = 9;
@@ -28,11 +33,20 @@ var direction = 0; // 0 - left, 1 - up, 2 - right, 3 - down
 
 var interval = setInterval(main, gameInterval);
 
+
 function endGame() {
   gameOver = true;
   clearInterval(interval);
+  updateRecord();
   if (alert(`GAME OVER\nYou scored ${score}`)) {}
   else window.location.reload();
+}
+
+function updateRecord() {
+  if (score > record) {
+    storage.setItem('record', score);
+    recordLabel.innerHTML = score;
+  }
 }
 
 function main() {
